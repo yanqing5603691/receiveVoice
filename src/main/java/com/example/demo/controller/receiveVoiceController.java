@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.AnalyzeJsonInfo;
+import com.example.demo.model.JuliVoice;
 import com.example.demo.model.ReceiveVoice;
 import com.example.demo.model.VoiceJsonInfo;
 import com.example.demo.util.GetCreateTime;
@@ -56,13 +57,13 @@ public class receiveVoiceController {
 
     @RequestMapping(value = "receiveVoice")
     @ResponseBody
-    public ResponseEntity receiveVoice(@RequestBody ReceiveVoice receiveVoice) {
+    public ResponseEntity receiveVoice(@RequestBody JuliVoice receiveVoice) {
         if(!getStartUtil.getFlag()){
             return new ResponseEntity("date_overTime", HttpStatus.LOOP_DETECTED);
         }
         // String savePath = "C:/Voice/";
-        String sessionid = receiveVoice.getSessionid();
-        String chargeNbr = receiveVoice.getChargeNbr();
+        //String sessionid = receiveVoice.getSessionid();
+        //String chargeNbr = receiveVoice.getChargeNbr();
         //receiveVoice.setVoiceAddress(receiveVoice.getVoiceAddress());
         //receiveVoice.setVoiceAddress("https://gss0.baidu.com/9fo3dSag_xI4khGko9WTAnF6hhy/wenku/q%3D90%3Bw%3D500/sign=a01a2ff4ac0f4bfb8ad09254383845c5/35a85edf8db1cb136b4c7c78d554564e92584bb7.jpg");
         String voiceAddress = receiveVoice.getVoiceAddress();
@@ -84,10 +85,10 @@ public class receiveVoiceController {
         return new ResponseEntity("success", HttpStatus.OK);
     }
 
-    public void createJson(ReceiveVoice receiveVoice, String VoiceName) {
+    public void createJson(JuliVoice receiveVoice, String VoiceName) {
         String sessionId = getSessionId(receiveVoice.getVoiceAddress());
         VoiceJsonInfo voiceJson = new VoiceJsonInfo();
-        voiceJson.callreference = receiveVoice.getSessionid();
+        voiceJson.callreference = receiveVoice.getCallid();
         voiceJson.calledid = receiveVoice.getCalledNbr();
         voiceJson.callerid = receiveVoice.getCallerNbr();
         voiceJson.extension = voiceJson.callerid;
@@ -127,7 +128,7 @@ public class receiveVoiceController {
         jsonObject.put("type", "1");
         jsonArray.add(jsonObject);
         voiceJson.audioList = jsonArray;
-        String fileName = jsonSavePath + "server6." + receiveVoice.getSessionid() + "_rs";
+        String fileName = jsonSavePath + "server6." + receiveVoice.getCallid() + "_rs";
         if (!"ut".equalsIgnoreCase(flag) && !"in".equalsIgnoreCase(flag)) {
             saveJsonToFile(Serializer(voiceJson), fileName);
             logger.info("Save Json To DCLog Success"+new Date());
