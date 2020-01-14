@@ -127,7 +127,7 @@ public class receiveVoiceController {
         jsonObject.put("type", "1");
         jsonArray.add(jsonObject);
         voiceJson.audioList = jsonArray;
-        String fileName = jsonSavePath + "server6." + receiveVoice.getSessionid() + "_rs";
+        String fileName = jsonSavePath + "server6." + receiveVoice.getSessionid() + "_rs.json";
         if (!"ut".equalsIgnoreCase(flag) && !"in".equalsIgnoreCase(flag)) {
             saveJsonToFile(Serializer(voiceJson), fileName);
             logger.info("Save Json To DCLog Success"+new Date());
