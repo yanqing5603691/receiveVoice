@@ -22,8 +22,8 @@ import java.util.Base64;
  * Created by yanqing on 2020/2/28.
  */
 public class tencentCloudByUrl {
-    static String SecretId = "AKIDXKsCH7ilaAoDOJlWzDBtxe8Ni6GBdCMI";
-    static String SecretKey = "qhJhqiT8aonbNuBf4FAoUv79OZVBeqmT";
+    static String SecretId = "";
+    static String SecretKey = "";
     public static String putVoiceByUrl(String url){
         try{
             Credential cred = new Credential(SecretId,SecretKey);
